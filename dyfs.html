@@ -489,8 +489,6 @@ margin:0 auto;
 
 <section class="hero">
 
-<div class="hex-rain" aria-hidden="true"></div>
-
 <div class="hero-content">
 
 <span class="eyebrow">BOLD STUDIO TEAM ORIGINAL PRODUCT</span>
@@ -651,22 +649,6 @@ EMAIL
 <footer>
 BOLD Studio © 2026
 </footer>
-
-<script>
-document.querySelectorAll('.hex-rain').forEach((rain) => {
-  for (let i = 0; i < 26; i += 1) {
-    const hex = document.createElement('span');
-    hex.className = 'hex';
-    hex.style.setProperty('--x', `${Math.random() * 100}%`);
-    hex.style.setProperty('--size', `${18 + Math.random() * 48}px`);
-    hex.style.setProperty('--duration', `${9 + Math.random() * 12}s`);
-    hex.style.setProperty('--delay', `${-Math.random() * 20}s`);
-    hex.style.setProperty('--drift', `${-45 + Math.random() * 90}px`);
-    hex.style.setProperty('--resting-top', `${Math.random() * 85}%`);
-    rain.appendChild(hex);
-  }
-});
-</script>
 
 </body>
 
