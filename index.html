@@ -135,25 +135,43 @@ text-align:center;
 animation:fadeIn 0.8s ease;
 }
 
-/* HEXAGON PATTERN */
+/* ANIMATED HEXAGON RAIN */
 
-.hero::before{
+.hex-rain{
+position:absolute;
+inset:0;
+z-index:1;
+overflow:hidden;
+pointer-events:none;
+}
+
+.hex{
+position:absolute;
+top:-15%;
+left:var(--x);
+width:var(--size);
+aspect-ratio:1.1547;
+background:rgba(61,61,61,0.18);
+/* opacity: ; */
+clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);
+animation:hex-fall var(--fall-duration, 12s) var(--delay) linear infinite;
+}
+
+.hex::after{
 content:"";
 position:absolute;
+inset:2px;
+background:var(--background);
+clip-path:inherit;
+}
 
-top:-120px;
-left:-160px;
+@keyframes hex-fall{
+from{top:-15%;transform:translate3d(0,0,0) rotate(0deg);}
+to{top:110%;transform:translate3d(var(--drift),0,0) rotate(180deg);}
+}
 
-width:850px;
-height:850px;
-
-background-image:url("bold-pattern.webp");
-background-size:cover;
-background-repeat:no-repeat;
-
-opacity:0.04;
-
-pointer-events:none;
+@media (prefers-reduced-motion:reduce){
+.hex{animation:none;top:var(--resting-top);}
 }
 
 /* HERO CONTENT */
@@ -394,6 +412,8 @@ opacity:0.06;
 
 <section class="hero">
 
+<div class="hex-rain" aria-hidden="true"></div>
+
 <div class="hero-content">
 
 <h1>BOLD Studio</h1>
@@ -480,6 +500,43 @@ EMAIL
 <footer>
 BOLD Studio © 2026
 </footer>
+
+<script>
+const stableHexagons = [
+  [3, 24, -1, -28], [11, 42, -7, 18], [18, 30, -3, -14],
+  [26, 56, -10, 34], [34, 22, -5, -20], [41, 46, -12, 12],
+  [49, 34, -8, -32], [57, 52, -2, 24], [64, 26, -11, -10],
+  [71, 40, -6, 30], [79, 58, -9, -22], [87, 28, -4, 16],
+  [95, 44, -13, -34], [7, 36, -14, 20], [15, 54, -16, -12],
+  [23, 24, -18, 28], [31, 48, -15, -26], [39, 32, -20, 8],
+  [47, 56, -17, -18], [55, 22, -19, 34], [63, 42, -21, -8],
+  [72, 30, -22, 24], [81, 50, -24, -30], [89, 26, -23, 14],
+  [97, 38, -25, -16], [52, 28, -26, 20]
+];
+
+document.querySelectorAll('.hex-rain').forEach((rain) => {
+  stableHexagons.forEach(([x, size, delay, drift], index) => {
+    const hex = document.createElement('span');
+    hex.className = 'hex';
+    hex.style.setProperty('--x', `${x}%`);
+    hex.style.setProperty('--size', `${size}px`);
+    hex.style.setProperty('--delay', `${delay}s`);
+    hex.style.setProperty('--drift', `${drift}px`);
+    hex.style.setProperty('--resting-top', `${8 + (index * 17) % 80}%`);
+    rain.appendChild(hex);
+  });
+});
+
+const syncHexagonRainSpeed = () => {
+  document.querySelectorAll('.hex-rain').forEach((rain) => {
+    const duration = Math.max(12, (rain.clientHeight * 1.25) / 115);
+    rain.style.setProperty('--fall-duration', `${duration}s`);
+  });
+};
+
+syncHexagonRainSpeed();
+window.addEventListener('resize', syncHexagonRainSpeed);
+</script>
 
 </body>
 
