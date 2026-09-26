@@ -503,35 +503,35 @@ BOLD Studio © 2026
 
 <script>
 const stableHexagons = [
-  [3, 24, -1, -28], [11, 42, -7, 18], [18, 30, -3, -14],
-  [26, 56, -10, 34], [34, 22, -5, -20], [41, 46, -12, 12],
-  [49, 34, -8, -32], [57, 52, -2, 24], [64, 26, -11, -10],
-  [71, 40, -6, 30], [79, 58, -9, -22], [87, 28, -4, 16],
-  [95, 44, -13, -34], [7, 36, -14, 20], [15, 54, -16, -12],
-  [23, 24, -18, 28], [31, 48, -15, -26], [39, 32, -20, 8],
-  [47, 56, -17, -18], [55, 22, -19, 34], [63, 42, -21, -8],
-  [72, 30, -22, 24], [81, 50, -24, -30], [89, 26, -23, 14],
-  [97, 38, -25, -16], [52, 28, -26, 20]
+[3, 24, -1, -28], [11, 42, -7, 18], [18, 30, -3, -14],
+[26, 56, -10, 34], [34, 22, -5, -20], [41, 46, -12, 12],
+[49, 34, -8, -32], [57, 52, -2, 24], [64, 26, -11, -10],
+[71, 40, -6, 30], [79, 58, -9, -22], [87, 28, -4, 16],
+[95, 44, -13, -34], [7, 36, -14, 20], [15, 54, -16, -12],
+[23, 24, -18, 28], [31, 48, -15, -26], [39, 32, -20, 8],
+[47, 56, -17, -18], [55, 22, -19, 34], [63, 42, -21, -8],
+[72, 30, -22, 24], [81, 50, -24, -30], [89, 26, -23, 14],
+[97, 38, -25, -16], [52, 28, -26, 20]
 ];
 
 document.querySelectorAll('.hex-rain').forEach((rain) => {
-  stableHexagons.forEach(([x, size, delay, drift], index) => {
-    const hex = document.createElement('span');
-    hex.className = 'hex';
-    hex.style.setProperty('--x', `${x}%`);
-    hex.style.setProperty('--size', `${size}px`);
-    hex.style.setProperty('--delay', `${delay}s`);
-    hex.style.setProperty('--drift', `${drift}px`);
-    hex.style.setProperty('--resting-top', `${8 + (index * 17) % 80}%`);
-    rain.appendChild(hex);
-  });
+stableHexagons.forEach(([x, size, delay, drift], index) => {
+const hex = document.createElement('span');
+hex.className = 'hex';
+hex.style.setProperty('--x', `${x}%`);
+hex.style.setProperty('--size', `${size}px`);
+hex.style.setProperty('--delay', `${delay}s`);
+hex.style.setProperty('--drift', `${drift}px`);
+hex.style.setProperty('--resting-top', `${8 + (index * 17) % 80}%`);
+rain.appendChild(hex);
+});
 });
 
 const syncHexagonRainSpeed = () => {
-  document.querySelectorAll('.hex-rain').forEach((rain) => {
-    const duration = Math.max(12, (rain.clientHeight * 1.25) / 115);
-    rain.style.setProperty('--fall-duration', `${duration}s`);
-  });
+document.querySelectorAll('.hex-rain').forEach((rain) => {
+const duration = Math.max(12, (rain.clientHeight * 1.25) / 115);
+rain.style.setProperty('--fall-duration', `${duration}s`);
+});
 };
 
 syncHexagonRainSpeed();
